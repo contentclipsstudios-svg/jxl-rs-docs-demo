@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Getting started</title>
+<style>body{max-width:760px;margin:40px auto;padding:0 20px;font:16px/1.6 system-ui,sans-serif;color:#222}
+img{max-width:100%;border-radius:8px}
+pre{background:#f4f4f4;padding:12px;border-radius:8px;overflow-x:auto}
+code{background:#eee;padding:2px 5px;border-radius:4px}pre code{background:none;padding:0}
+a{color:#0b62c4}@media(prefers-color-scheme:dark){body{color:#ddd;background:#141414}pre{background:#1e1e1e}code{background:#2a2a2a}}</style>
+<style>
+.qnav{position:sticky;top:0;z-index:10;border-bottom:1px solid #e2e2e2;background:#fff}
+.qnav-inner{max-width:900px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:18px;font:14px/1.4 system-ui,sans-serif}
+.qnav a{color:#444;text-decoration:none}.qnav a:hover{color:#0b62c4}
+.qbrand{font-weight:700;color:#111 !important;margin-right:8px}
+.qdemo{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:9px;background:#0b62c4;color:#fff;font-size:11px;font-weight:600;letter-spacing:.4px}
+.qfoot{border-top:1px solid #e2e2e2;margin-top:60px;padding:20px 0 32px;color:#888;font:13px/1.6 system-ui,sans-serif}
+.qfoot a{color:#0b62c4}
+@media(prefers-color-scheme:dark){
+.qnav{border-color:#2a2a2a;background:#141414}
+.qnav-inner{background:#141414}
+.qnav a{color:#aaa}.qbrand{color:#eee !important}
+.qdemo{background:#2a2a2a;color:#7ab8ff}
+.qfoot{border-color:#2a2a2a;color:#777}
+}
+</style>
+</head><body>
+<nav class="qnav"><div class="qnav-inner"><a class="qbrand" href="index.html">jxl-rs docs <span class="qdemo">demo</span></a><a href="index.html">Home</a><a href="getting-started.html">Getting started</a><a href="decode-path.html">Decode path</a><a href="cli-cookbook.html">CLI cookbook</a><a href="faq.html">FAQ</a></div></nav><h1>Getting started</h1><h2>Install the library</h2><p>The decoder ships as the <code>jxl</code> crate:</p><pre><code>cargo add jxl</code></pre><p>To decode through the <code>image</code> crate's format-agnostic loading APIs, add the integration crate and register the JPEG XL decoder:</p><pre><code>[dependencies]
+image = &quot;0.25&quot;
+jxl-image-rs-integration = &quot;0.6&quot;</code></pre><pre><code>jxl_image_rs_integration::register_image_decoding_hook();
+
+let decoded = image::open(&quot;input.jxl&quot;)?;
+# Ok::&lt;(), image::ImageError&gt;(())</code></pre><p>Registration enables both <code>.jxl</code> extension handling and automatic detection of bare codestreams and JPEG XL containers.</p><h2>Build the CLI</h2><p>The <code>jxl_cli</code> crate is the CLI decoding and benchmarking tool:</p><pre><code>git clone https://github.com/libjxl/jxl-rs
+cd jxl-rs
+cargo build --release --bin jxl_cli</code></pre><h2>First decode</h2><pre><code>target/release/jxl_cli input.jxl output.png</code></pre><p>Supported outputs include PNG, PPM, PGM, APNG and EXR. Continue with the <a href="cli-cookbook.html">CLI cookbook</a> for metadata and benchmarking, or <a href="decode-path.html">The decode path</a> for the library API.</p><footer class="qfoot"><div class="qnav-inner">Unofficial documentation demo for <a href="https://github.com/libjxl/jxl-rs">libjxl/jxl-rs</a>, built in response to <a href="https://github.com/libjxl/jxl-rs/issues/1001">issue #1001</a> with <a href="https://contentclips.studios">Quillmark</a>. Not affiliated with the jxl-rs project — proof-of-concept by ContentClips Studios.</div></footer>
+</body></html>

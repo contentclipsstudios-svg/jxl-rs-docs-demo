@@ -1,0 +1,27 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FAQ</title>
+<style>body{max-width:760px;margin:40px auto;padding:0 20px;font:16px/1.6 system-ui,sans-serif;color:#222}
+img{max-width:100%;border-radius:8px}
+pre{background:#f4f4f4;padding:12px;border-radius:8px;overflow-x:auto}
+code{background:#eee;padding:2px 5px;border-radius:4px}pre code{background:none;padding:0}
+a{color:#0b62c4}@media(prefers-color-scheme:dark){body{color:#ddd;background:#141414}pre{background:#1e1e1e}code{background:#2a2a2a}}</style>
+<style>
+.qnav{position:sticky;top:0;z-index:10;border-bottom:1px solid #e2e2e2;background:#fff}
+.qnav-inner{max-width:900px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:18px;font:14px/1.4 system-ui,sans-serif}
+.qnav a{color:#444;text-decoration:none}.qnav a:hover{color:#0b62c4}
+.qbrand{font-weight:700;color:#111 !important;margin-right:8px}
+.qdemo{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:9px;background:#0b62c4;color:#fff;font-size:11px;font-weight:600;letter-spacing:.4px}
+.qfoot{border-top:1px solid #e2e2e2;margin-top:60px;padding:20px 0 32px;color:#888;font:13px/1.6 system-ui,sans-serif}
+.qfoot a{color:#0b62c4}
+@media(prefers-color-scheme:dark){
+.qnav{border-color:#2a2a2a;background:#141414}
+.qnav-inner{background:#141414}
+.qnav a{color:#aaa}.qbrand{color:#eee !important}
+.qdemo{background:#2a2a2a;color:#7ab8ff}
+.qfoot{border-color:#2a2a2a;color:#777}
+}
+</style>
+</head><body>
+<nav class="qnav"><div class="qnav-inner"><a class="qbrand" href="index.html">jxl-rs docs <span class="qdemo">demo</span></a><a href="index.html">Home</a><a href="getting-started.html">Getting started</a><a href="decode-path.html">Decode path</a><a href="cli-cookbook.html">CLI cookbook</a><a href="faq.html">FAQ</a></div></nav><h1>FAQ</h1><h2>Is jxl-rs the official JPEG XL implementation?</h2><p>No. <code>libjxl</code> (C++) is the official ISO/IEC 18181-4 reference software. <code>jxl-rs</code> is a pure-Rust implementation developed within the JPEG XL project; it aims for full specification conformance, and it is the JPEG XL decoder used in Google Chrome / Chromium and Mozilla Firefox.</p><h2>How does its performance compare?</h2><p>The performance closely matches — and sometimes exceeds — the C++ reference implementation, while having improved support for progressive rendering and lower memory requirements.</p><h2>Is it memory safe?</h2><p>The vast majority of the code is safe Rust. Where <code>unsafe</code> is needed for performance benefits (including SIMD), it must carry extensive safety comments and be reviewed by a non-author unsafe Rust expert.</p><h2>Where do I report a decoding bug?</h2><p>Open an issue with a bitstream that decodes with <code>djxl</code> but fails with jxl-rs. See the <a href="cli-cookbook.html">CLI cookbook</a> for the workflow.</p><h2>How do I contribute?</h2><p>See <a href="https://github.com/libjxl/jxl-rs/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> for contribution guidelines and CLA requirements, and join the <a href="https://discord.gg/DqkQgDRTFu">JPEG XL Discord</a> to talk to the community.</p><h2>What is JPEG XL?</h2><p>A still-image codec standardized in 2022 as ISO/IEC 18181. More at <a href="https://jpeg.org/jpegxl">jpeg.org/jpegxl</a> and <a href="https://jpegxl.info">jpegxl.info</a>.</p><footer class="qfoot"><div class="qnav-inner">Unofficial documentation demo for <a href="https://github.com/libjxl/jxl-rs">libjxl/jxl-rs</a>, built in response to <a href="https://github.com/libjxl/jxl-rs/issues/1001">issue #1001</a> with <a href="https://contentclips.studios">Quillmark</a>. Not affiliated with the jxl-rs project — proof-of-concept by ContentClips Studios.</div></footer>
+</body></html>

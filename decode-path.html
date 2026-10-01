@@ -1,0 +1,27 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The decode path</title>
+<style>body{max-width:760px;margin:40px auto;padding:0 20px;font:16px/1.6 system-ui,sans-serif;color:#222}
+img{max-width:100%;border-radius:8px}
+pre{background:#f4f4f4;padding:12px;border-radius:8px;overflow-x:auto}
+code{background:#eee;padding:2px 5px;border-radius:4px}pre code{background:none;padding:0}
+a{color:#0b62c4}@media(prefers-color-scheme:dark){body{color:#ddd;background:#141414}pre{background:#1e1e1e}code{background:#2a2a2a}}</style>
+<style>
+.qnav{position:sticky;top:0;z-index:10;border-bottom:1px solid #e2e2e2;background:#fff}
+.qnav-inner{max-width:900px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:18px;font:14px/1.4 system-ui,sans-serif}
+.qnav a{color:#444;text-decoration:none}.qnav a:hover{color:#0b62c4}
+.qbrand{font-weight:700;color:#111 !important;margin-right:8px}
+.qdemo{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:9px;background:#0b62c4;color:#fff;font-size:11px;font-weight:600;letter-spacing:.4px}
+.qfoot{border-top:1px solid #e2e2e2;margin-top:60px;padding:20px 0 32px;color:#888;font:13px/1.6 system-ui,sans-serif}
+.qfoot a{color:#0b62c4}
+@media(prefers-color-scheme:dark){
+.qnav{border-color:#2a2a2a;background:#141414}
+.qnav-inner{background:#141414}
+.qnav a{color:#aaa}.qbrand{color:#eee !important}
+.qdemo{background:#2a2a2a;color:#7ab8ff}
+.qfoot{border-color:#2a2a2a;color:#777}
+}
+</style>
+</head><body>
+<nav class="qnav"><div class="qnav-inner"><a class="qbrand" href="index.html">jxl-rs docs <span class="qdemo">demo</span></a><a href="index.html">Home</a><a href="getting-started.html">Getting started</a><a href="decode-path.html">Decode path</a><a href="cli-cookbook.html">CLI cookbook</a><a href="faq.html">FAQ</a></div></nav><h1>The decode path</h1><p><a href="https://github.com/libjxl/jxl-rs/issues/1001">Issue #1001</a> describes the problem precisely: docs.rs shows the modules but not the path — a clear documented path of what a user might actually need to start decoding. After <a href="https://github.com/libjxl/jxl-rs/pull/998">PR #998</a>, the public surface settles on <code>api</code>, <code>image</code> and <code>error</code>. This page is that path.</p><h2>1. Start at <code>jxl::api::JxlDecoder</code></h2><p><code>JxlDecoder</code> is the high-level API — it uses the typestate pattern to forbid invalid usage, so the compiler walks you through the decode: methods hand back a decoder in the next valid state (see the <code>api::states</code> module).</p><h2>2. Read the image metadata</h2><p>Once the header is parsed, <code>JxlBasicInfo</code> carries what you need to know before any pixel arrives: dimensions and bit depth, plus <code>JxlAnimation</code> timing for animations. Each frame is described by a <code>JxlFrameHeader</code>.</p><h2>3. Request pixels your way</h2><p><code>JxlDecoderOptions</code> and <code>JxlPixelFormat</code> control how the buffers come out; decoded pixels land in a <code>JxlOutputBuffer</code> from the <code>jxl::image</code> module. Extra channels, when the bitstream has them, surface via <code>JxlExtraChannel</code>.</p><h2>4. Handle errors with <code>jxl::error</code></h2><p>Fallible operations return <code>Result</code> values — the <code>error</code> module is the third public piece of the surface, and alongside <code>api</code> it is the only one a decoder integration should need.</p><h2>What stays internal</h2><p><code>bit_reader</code>, <code>color</code>, <code>entropy_coding</code>, <code>features</code>, <code>frame</code>, <code>headers</code>, <code>icc</code>, <code>render</code> and <code>util</code> are implementation details; after #998 they are no longer part of the public API. If you find yourself reaching for them, <code>JxlDecoderInner</code> (the low-level, less-type-safe API in <code>api</code>) is the sanctioned escape hatch.</p><p>For item-level signatures, <a href="https://docs.rs/jxl">docs.rs</a> remains the reference — this page is the path between the landing page and it.</p><footer class="qfoot"><div class="qnav-inner">Unofficial documentation demo for <a href="https://github.com/libjxl/jxl-rs">libjxl/jxl-rs</a>, built in response to <a href="https://github.com/libjxl/jxl-rs/issues/1001">issue #1001</a> with <a href="https://contentclips.studios">Quillmark</a>. Not affiliated with the jxl-rs project — proof-of-concept by ContentClips Studios.</div></footer>
+</body></html>
